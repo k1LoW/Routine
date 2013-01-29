@@ -162,11 +162,23 @@ class RoutineController extends AppController {
         if (!$this->request->is('post')) {
             throw new OutOfBoundsException(__('Invalid Access'));
         }
-        if($this->{$this->modelClass}->drop($id)) {
-            $this->Session->setFlash(
-                __('The %s has been deleted', __($this->modelClass)),
-                $this->setFlashElement['success'],
-                $this->setFlashParams['success']);
+        try {
+            if($this->{$this->modelClass}->drop($id)) {
+                $this->Session->setFlash(
+                    __('The %s has been deleted', __($this->modelClass)),
+                    $this->setFlashElement['success'],
+                    $this->setFlashParams['success']);
+                $this->_deleteRedirect();
+            }
+        } catch (ValidationException $e) {
+            $this->Session->setFlash($e->getMessage(),
+                $this->setFlashElement['error'],
+                $this->setFlashParams['error']);
+            $this->_deleteRedirect();
+        } catch (OutOfBoundsException $e) {
+            $this->Session->setFlash($e->getMessage(),
+                $this->setFlashElement['error'],
+                $this->setFlashParams['error']);
             $this->_deleteRedirect();
         }
     }
