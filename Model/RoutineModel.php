@@ -79,10 +79,7 @@ class RoutineModel extends AppModel {
         }
         // for SoftDeletable
         $this->set($current);
-        $result = $this->delete($id);
-        if (!$result) {
-            throw new ValidationException();
-        }
+        $this->delete($id);
         $count = $this->find('count', array(
                 'conditions' => array(
                     "{$this->alias}.{$this->primaryKey}" => $id,
