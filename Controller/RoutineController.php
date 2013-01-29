@@ -3,11 +3,11 @@ App::uses('AppController', 'Controller');
 class RoutineController extends AppController {
 
     protected $setFlashElement = array('success' => null,
-                                       'error' => null,
-                                       );
+        'error' => null,
+    );
     protected $setFlashParams = array('success' => array(),
-                                      'error' => array(),
-                                      );
+        'error' => array(),
+    );
 
     /**
      * index
@@ -69,19 +69,19 @@ class RoutineController extends AppController {
             $result = $this->{$this->modelClass}->add($this->request->data);
             if ($result === true) {
                 $this->Session->setFlash(
-                                         __('The %s has been created', __($this->modelClass)),
-                                         $this->setFlashElement['success'],
-                                         $this->setFlashParams['success']);
+                    __('The %s has been created', __($this->modelClass)),
+                    $this->setFlashElement['success'],
+                    $this->setFlashParams['success']);
                 $this->_addRedirect();
             }
         } catch (ValidationException $e) {
             $this->Session->setFlash($e->getMessage(),
-                                     $this->setFlashElement['error'],
-                                     $this->setFlashParams['error']);
+                $this->setFlashElement['error'],
+                $this->setFlashParams['error']);
         } catch (OutOfBoundsException $e) {
             $this->Session->setFlash($e->getMessage(),
-                                     $this->setFlashElement['error'],
-                                     $this->setFlashParams['error']);
+                $this->setFlashElement['error'],
+                $this->setFlashParams['error']);
         }
         if (!empty($this->{$this->modelClass}->belongsTo)) {
             foreach ($this->{$this->modelClass}->belongsTo as $modelClass => $value) {
@@ -115,21 +115,21 @@ class RoutineController extends AppController {
             $result = $this->{$this->modelClass}->edit($id, $this->request->data);
             if ($result === true) {
                 $this->Session->setFlash(
-                                         __('The %s has been modified', __(Inflector::humanize($this->modelClass))),
-                                         $this->setFlashElement['success'],
-                                         $this->setFlashParams['success']);
+                    __('The %s has been modified', __(Inflector::humanize($this->modelClass))),
+                    $this->setFlashElement['success'],
+                    $this->setFlashParams['success']);
                 $this->_editRedirect();
             } else {
                 $this->request->data = $result;
             }
         } catch (ValidationException $e) {
             $this->Session->setFlash($e->getMessage(),
-                                     $this->setFlashElement['error'],
-                                     $this->setFlashParams['error']);
+                $this->setFlashElement['error'],
+                $this->setFlashParams['error']);
         } catch (OutOfBoundsException $e) {
             $this->Session->setFlash($e->getMessage(),
-                                     $this->setFlashElement['error'],
-                                     $this->setFlashParams['error']);
+                $this->setFlashElement['error'],
+                $this->setFlashParams['error']);
         }
         if (!empty($this->{$this->modelClass}->belongsTo)) {
             foreach ($this->{$this->modelClass}->belongsTo as $modelClass => $value) {
@@ -164,9 +164,9 @@ class RoutineController extends AppController {
         }
         if($this->{$this->modelClass}->drop($id)) {
             $this->Session->setFlash(
-                                     __('The %s has been deleted', __($this->modelClass)),
-                                     $this->setFlashElement['success'],
-                                     $this->setFlashParams['success']);
+                __('The %s has been deleted', __($this->modelClass)),
+                $this->setFlashElement['success'],
+                $this->setFlashParams['success']);
             $this->_deleteRedirect();
         }
     }
@@ -189,10 +189,10 @@ class RoutineController extends AppController {
                 $this->redirect($this->Auth->redirect(), null, true);
             } else {
                 $this->Session->setFlash(
-                                         __('Username or password is incorrect'),
-                                         $this->setFlashElement['error'],
-                                         $this->setFlashParams['error'],
-                                         'auth');
+                    __('Username or password is incorrect'),
+                    $this->setFlashElement['error'],
+                    $this->setFlashParams['error'],
+                    'auth');
             }
         }
     }

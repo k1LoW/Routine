@@ -7,8 +7,8 @@ class RoutineModel extends AppModel {
      */
     public function view($id) {
         $result = $this->find('first', array(
-                                              'conditions' => array(
-                                                                    "{$this->alias}.{$this->primaryKey}" => $id)));
+                'conditions' => array(
+                    "{$this->alias}.{$this->primaryKey}" => $id)));
 
         if (empty($result)) {
             throw new NotFoundException(__('Invalid Access'));
@@ -43,9 +43,9 @@ class RoutineModel extends AppModel {
      */
     public function edit($id, $data) {
         $current = $this->find('first', array(
-                                              'conditions' => array(
-                                                                    "{$this->alias}.{$this->primaryKey}" => $id,
-                                                                    )));
+                'conditions' => array(
+                    "{$this->alias}.{$this->primaryKey}" => $id,
+                )));
 
         if (empty($current)) {
             throw new NotFoundException(__('Invalid Access'));
@@ -70,9 +70,9 @@ class RoutineModel extends AppModel {
      */
     public function drop($id){
         $current = $this->find('first', array(
-                                              'conditions' => array(
-                                                                    "{$this->alias}.{$this->primaryKey}" => $id,
-                                                                    )));
+                'conditions' => array(
+                    "{$this->alias}.{$this->primaryKey}" => $id,
+                )));
 
         if (empty($current)) {
             throw new NotFoundException(__('Invalid Access'));
@@ -81,9 +81,9 @@ class RoutineModel extends AppModel {
         $this->set($current);
         $this->delete($id);
         $count = $this->find('count', array(
-                                              'conditions' => array(
-                                                                    "{$this->alias}.{$this->primaryKey}" => $id,
-                                                                    )));
+                'conditions' => array(
+                    "{$this->alias}.{$this->primaryKey}" => $id,
+                )));
         return ($count === 0);
     }
 }
