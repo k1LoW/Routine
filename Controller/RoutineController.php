@@ -118,7 +118,7 @@ class RoutineController extends AppController {
                     __('The %s has been modified', __(Inflector::humanize($this->modelClass))),
                     $this->setFlashElement['success'],
                     $this->setFlashParams['success']);
-                $this->_editRedirect();
+                $this->_editRedirect($id);
             } else {
                 $this->request->data = $result;
             }
@@ -142,7 +142,7 @@ class RoutineController extends AppController {
      * _editRedirect
      *
      */
-    protected function _editRedirect(){
+    protected function _editRedirect($id = null){
         $this->_addRedirect();
     }
 
