@@ -11,17 +11,17 @@ class RoutinePostFixture extends CakeTestFixture {
     );
 
     public $records = array(
-                         array(
-                               'title' => 'Title',
-                               'body' => 'RoutineModel Test',
-                               'created' => '2012-08-23 17:44:58',
-                               'modified' => '2012-08-23 12:05:02'
-                               ),
-                         array(
-                               'title' => 'Title2',
-                               'body' => 'RoutineModel Test2',
-                               'created' => '2012-08-23 17:44:58',
-                               'modified' => '2012-08-23 12:05:02'
-                               ),
-                         );
+        array(
+            'title' => 'Title',
+            'body' => 'RoutineModel Test',
+            'created' => '2012-08-23 17:44:58',
+            'modified' => '2012-08-23 12:05:02'
+        ),
+        array(
+            'title' => 'Title2',
+            'body' => 'RoutineModel Test2',
+            'created' => '2012-08-23 17:44:58',
+            'modified' => '2012-08-23 12:05:02'
+        ),
+    );
 }

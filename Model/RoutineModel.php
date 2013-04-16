@@ -5,11 +5,11 @@ class RoutineModel extends AppModel {
     /**
      * view
      */
-    public function view($id) {
+    public function view($id, $conditions = array()) {
+        $conditions["{$this->alias}.{$this->primaryKey}"] = $id;
         $result = $this->find('first', array(
-                'conditions' => array(
-                    "{$this->alias}.{$this->primaryKey}" => $id)));
-
+                'conditions' => $conditions
+            ));
         if (empty($result)) {
             throw new NotFoundException(__('Invalid Access'));
         }
@@ -41,11 +41,11 @@ class RoutineModel extends AppModel {
     /**
      * edit
      */
-    public function edit($id, $data) {
+    public function edit($id, $data, $conditions = array()) {
+        $conditions["{$this->alias}.{$this->primaryKey}"] = $id;
         $current = $this->find('first', array(
-                'conditions' => array(
-                    "{$this->alias}.{$this->primaryKey}" => $id,
-                )));
+                'conditions' => $conditions
+            ));
 
         if (empty($current)) {
             throw new NotFoundException(__('Invalid Access'));
@@ -68,11 +68,11 @@ class RoutineModel extends AppModel {
     /**
      * drop
      */
-    public function drop($id){
+    public function drop($id, $conditions = array()){
+        $conditions["{$this->alias}.{$this->primaryKey}"] = $id;
         $current = $this->find('first', array(
-                'conditions' => array(
-                    "{$this->alias}.{$this->primaryKey}" => $id,
-                )));
+                'conditions' => $conditions
+                ));
 
         if (empty($current)) {
             throw new NotFoundException(__('Invalid Access'));

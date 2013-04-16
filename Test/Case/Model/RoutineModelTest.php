@@ -6,20 +6,23 @@ App::uses('ValidationException', 'Routine.Error');
 
 class RoutinePost extends RoutineModel {
     public $name = 'RoutinePost';
-    public $validate = array('title' => array('rule' => 'notEmpty',
-                                              'required' => true));
+    public $validate = array(
+        'title' => array(
+            'rule' => 'notEmpty',
+            'required' => true
+        ));
 }
 
 class RoutineModelTestCase extends CakeTestCase{
 
     public $fixtures = array('plugin.Routine.routine_post');
 
-    function setUp() {
+    public function setUp() {
         $this->RoutinePost = new RoutinePost();
         $this->RoutinePostFixture = ClassRegistry::init('RoutinePostFixture');
     }
 
-    function tearDown() {
+    public function tearDown() {
         unset($this->RoutinePost);
         unset($this->RoutinePostFixture);
     }
@@ -59,7 +62,9 @@ class RoutineModelTestCase extends CakeTestCase{
      * @expectedException ValidationException
      */
     public function testAddValidationException(){
-        $data = array('RoutinePost' => array('body' => 'ValidationError'));
+        $data = array('RoutinePost' => array(
+                'body' => 'ValidationError'
+            ));
         $result = $this->RoutinePost->add($data);
     }
 
@@ -68,8 +73,95 @@ class RoutineModelTestCase extends CakeTestCase{
      *
      */
     public function testAdd(){
-        $data = array('RoutinePost' => array('title' => 'Test',
-                                             'body' => 'ValidationError'));
+        $data = array('RoutinePost' => array(
+                'title' => 'Test',
+                'body' => 'OK'
+            ));
         $result = $this->RoutinePost->add($data);
+        $id = $this->RoutinePost->getLastInsertID();
+        $result = $this->RoutinePost->view($id);
+        $this->assertIdentical($result['RoutinePost']['body'], 'OK');
+    }
+
+    /**
+     * testEdit
+     *
+     */
+    public function testEdit(){
+        $data = array('RoutinePost' => array(
+                'title' => 'Test',
+                'body' => 'OK'
+            ));
+        $result = $this->RoutinePost->add($data);
+        $id = $this->RoutinePost->getLastInsertID();
+        $data = array('RoutinePost' => array(
+                'id' => $id,
+                'title' => 'Test',
+                'body' => 'Modified'
+            ));
+        $result = $this->RoutinePost->edit($id, $data);
+        $result = $this->RoutinePost->view($id);
+        $this->assertIdentical($result['RoutinePost']['body'], 'Modified');
+    }
+
+    /**
+     * testDrop
+     *
+     */
+    public function testDrop(){
+        $data = array('RoutinePost' => array(
+                'title' => 'Test',
+                'body' => 'OK'
+            ));
+        $result = $this->RoutinePost->add($data);
+        $id = $this->RoutinePost->getLastInsertID();
+        $result = $this->RoutinePost->drop($id);
+        $this->assertTrue($result);
+    }
+
+    /**
+     * testViewWithCondition
+     *
+     * @expectedException NotFoundException
+     */
+    public function testViewWithCondition(){
+        $result = $this->RoutinePost->view(1, array('RoutinePost.title' => 'Title2'));
+    }
+
+    /**
+     * testEditWithCondition
+     *
+     * @expectedException NotFoundException
+     */
+    public function testEditWithCondition(){
+        $data = array('RoutinePost' => array(
+                'title' => 'Test',
+                'body' => 'OK'
+            ));
+        $result = $this->RoutinePost->add($data);
+        $id = $this->RoutinePost->getLastInsertID();
+        $data = array('RoutinePost' => array(
+                'id' => $id,
+                'title' => 'Test',
+                'body' => 'Modified'
+            ));
+        $conditions = array('RoutinePost.body' => 'NG');
+        $result = $this->RoutinePost->edit($id, $data, $conditions);
+    }
+
+    /**
+     * testDropWithCondition
+     *
+     * @expectedException NotFoundException
+     */
+    public function testDropWithCondition(){
+        $data = array('RoutinePost' => array(
+                'title' => 'Test',
+                'body' => 'OK'
+            ));
+        $result = $this->RoutinePost->add($data);
+        $id = $this->RoutinePost->getLastInsertID();
+        $conditions = array('RoutinePost.body' => 'NG');
+        $result = $this->RoutinePost->drop($id, $conditions);
     }
 }
