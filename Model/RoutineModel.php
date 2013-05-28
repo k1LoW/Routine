@@ -20,22 +20,23 @@ class RoutineModel extends AppModel {
      * add
      */
     public function add($data) {
-        if (!empty($data)) {
-            $this->create();
-            $this->set($data);
-            $result = $this->validates();
-            if ($result === false) {
-                throw new ValidationException();
-            }
-            $result = $this->save($data);
-            if ($result !== false) {
-                $this->data = array_merge($data, $result);
-                return true;
-            } else {
-                throw new OutOfBoundsException(__('Could not save, please check your inputs.', true));
-            }
+        if (empty($data)) {
             return;
         }
+        $this->create();
+        $this->set($data);
+        $result = $this->validates();
+        if ($result === false) {
+            throw new ValidationException();
+        }
+        $result = $this->save($data);
+        if ($result !== false) {
+            $this->data = array_merge($data, $result);
+            return true;
+        } else {
+            throw new OutOfBoundsException(__('Could not save, please check your inputs.', true));
+        }
+        return;
     }
 
     /**
@@ -72,7 +73,7 @@ class RoutineModel extends AppModel {
         $conditions["{$this->alias}.{$this->primaryKey}"] = $id;
         $current = $this->find('first', array(
                 'conditions' => $conditions
-                ));
+            ));
 
         if (empty($current)) {
             throw new NotFoundException(__('Invalid Access'));
