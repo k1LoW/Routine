@@ -46,7 +46,7 @@ class RoutineComponent extends Component {
      */
     public function search(){
         $this->Controller->Prg->commonProcess();
-        $conditions = $this->Controller->{$this->modelClass}->parseCriteria($this->Controller->passedArgs);
+        $conditions = $this->Controller->{$this->Controller->modelClass}->parseCriteria($this->Controller->passedArgs);
         $this->Controller->set(
             Inflector::pluralize(Inflector::variable($this->Controller->modelClass)),
             $this->Controller->Paginator->paginate($conditions)
