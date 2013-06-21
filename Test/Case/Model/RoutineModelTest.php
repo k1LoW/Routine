@@ -11,6 +11,33 @@ class RoutinePost extends RoutineModel {
             'rule' => 'notEmpty',
             'required' => true
         ));
+
+    /**
+     * __construct
+     *
+     * @param
+     */
+    public function __construct($id = false, $table = null, $ds = null) {
+        $this->actsAs = false;
+        parent::__construct($id, $table, $ds);
+    }
+
+    /**
+     * beforeValidate
+     *
+     */
+    public function beforeValidate($options = array()){
+        return true;
+    }
+
+    /**
+     * beforeSave
+     *
+     */
+    public function beforeSave($options = array()){
+        return true;
+    }
+
 }
 
 class RoutineModelTestCase extends CakeTestCase{
@@ -18,7 +45,7 @@ class RoutineModelTestCase extends CakeTestCase{
     public $fixtures = array('plugin.Routine.routine_post');
 
     public function setUp() {
-        $this->RoutinePost = new RoutinePost();
+        $this->RoutinePost = ClassRegistry::init('RoutinePost');
         $this->RoutinePostFixture = ClassRegistry::init('RoutinePostFixture');
     }
 
