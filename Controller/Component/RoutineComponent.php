@@ -69,7 +69,6 @@ class RoutineComponent extends Component {
      *
      */
     public function add(){
-        $this->addRedirect();
         try {
             $result = $this->Controller->{$this->Controller->modelClass}->add($this->Controller->request->data);
             if ($result === true) {
