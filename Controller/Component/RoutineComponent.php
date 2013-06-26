@@ -76,7 +76,8 @@ class RoutineComponent extends Component {
                     __('The %s has been created', __($this->Controller->modelClass)),
                     $this->Controller->setFlashElement['success'],
                     $this->Controller->setFlashParams['success']);
-                $this->addRedirect();
+                $id = $this->Controller->{$this->Controller->modelClass}->getLastInsertID();
+                $this->addRedirect($id);
             }
         } catch (ValidationException $e) {
             $this->Controller->Session->setFlash($e->getMessage(),
@@ -98,9 +99,10 @@ class RoutineComponent extends Component {
      * addRedirect
      *
      */
-    protected function addRedirect(){
+    protected function addRedirect($id){
         $func = $this->redirect['add'][0];
         $param = $this->redirect['add'][1];
+        $param[] = $id;
         call_user_func_array($func, $param);
     }
 
@@ -161,18 +163,18 @@ class RoutineComponent extends Component {
                     __('The %s has been deleted', __($this->Controller->modelClass)),
                     $this->Controller->setFlashElement['success'],
                     $this->Controller->setFlashParams['success']);
-                $this->deleteRedirect();
+                $this->deleteRedirect($id);
             }
         } catch (ValidationException $e) {
             $this->Controller->Session->setFlash($e->getMessage(),
                 $this->Controller->setFlashElement['error'],
                 $this->Controller->setFlashParams['error']);
-            $this->deleteRedirect();
+            $this->deleteRedirect($id);
         } catch (OutOfBoundsException $e) {
             $this->Controller->Session->setFlash($e->getMessage(),
                 $this->setFlashElement['error'],
                 $this->setFlashParams['error']);
-            $this->deleteRedirect();
+            $this->deleteRedirect($id);
         }
     }
 
@@ -180,9 +182,10 @@ class RoutineComponent extends Component {
      * deleteRedirect
      *
      */
-    protected function deleteRedirect(){
+    protected function deleteRedirect($id = null){
         $func = $this->redirect['delete'][0];
         $param = $this->redirect['delete'][1];
+        $param[] = $id;
         call_user_func_array($func, $param);
     }
 
