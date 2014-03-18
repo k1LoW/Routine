@@ -2,7 +2,7 @@
     "name": "k1low/routine",
     "description": "Custom CRUD Set for CakePHP",
     "type": "cakephp-plugin",
-    "keywords": ["cakephp", "file", "attachement"],
+    "keywords": ["cakephp", "crud"],
     "homepage": "https://github.com/k1LoW/Routine",
     "license": "MIT",
     "authors": [
